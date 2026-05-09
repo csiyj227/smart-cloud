@@ -1,0 +1,13 @@
+/**
+ * ${functionName} API 模块。
+ * 由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ */
+import request from '@/utils/request'
+
+const BASE = '/${lowerClassName}'
+
+export const page${className} = (params: any) => request.get(BASE + '/page', { params })
+export const get${className}ById = (id: number) => request.get(BASE + '/' + id)
+export const create${className} = (data: any) => request.post(BASE, data)
+export const update${className} = (data: any) => request.put(BASE, data)
+export const delete${className} = (id: number) => request.delete(BASE + '/' + id)

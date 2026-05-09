@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.smart</groupId>
+        <artifactId>smart-flow</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>smart-flow-api</artifactId>
+    <name>smart-flow-api</name>
+    <description>Public DTOs / enums / Feign contracts of smart-flow</description>
+
+    <dependencies>
+        <!-- Smart Core -->
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-common-core</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- OpenFeign for cross-service contracts -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- Bean Validation (JSR-380) - used by request DTOs -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,5 @@
+
+# 代码生成服务配置
+spring:
+  resources:
+    static-locations: classpath:/static/,classpath:/views/

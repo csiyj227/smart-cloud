@@ -1,0 +1,3 @@
+com.smart.common.data.mybatis.MybatisPlusConfiguration
+com.smart.common.data.cache.RedisConfiguration
+com.smart.common.data.SmartCommonDataAutoConfiguration

@@ -1,0 +1,36 @@
+package ${packageName}.${moduleName}.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.smart.common.data.domain.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+#foreach($import in $importList)
+import ${import};
+#end
+
+/**
+ * ${functionName} 实体类。
+ *
+ * <p>对应物理表 {@code ${tableName}}（${tableComment}）。
+ * 由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName("${tableName}")
+public class ${className} extends BaseEntity {
+
+#foreach($column in $columns)
+#if(!$column.columnName.equalsIgnoreCase("create_by") && !$column.columnName.equalsIgnoreCase("create_time") && !$column.columnName.equalsIgnoreCase("update_by") && !$column.columnName.equalsIgnoreCase("update_time") && !$column.columnName.equalsIgnoreCase("del_flag"))
+    /**
+     * ${column.columnComment}
+     */
+#if($column.isPk)
+    @TableId(type = IdType.AUTO)
+#end
+    private ${column.javaType} ${column.javaField};
+
+#end
+#end
+}

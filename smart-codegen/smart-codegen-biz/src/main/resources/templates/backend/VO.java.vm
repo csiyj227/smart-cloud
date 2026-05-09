@@ -1,0 +1,23 @@
+package ${packageName}.${moduleName}.vo;
+
+import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+#foreach($import in $importList)
+import ${import};
+#end
+
+/**
+ * ${functionName} 出参 VO（用于列表 / 详情返回）。
+ *
+ * <p>由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ */
+@Data
+@Schema(description = "${functionName} 响应 VO")
+public class ${className}VO {
+
+#foreach($column in $listColumns)
+    @Schema(description = "${column.columnComment}")
+    private ${column.javaType} ${column.javaField};
+
+#end
+}

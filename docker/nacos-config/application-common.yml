@@ -1,0 +1,71 @@
+
+# Smart 公共配置 - 所有微服务共享
+spring:
+  datasource:
+    # 单体模式 (smart-boot) 排除了 DynamicDataSourceAutoConfiguration，直接使用此配置
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:csiyj_db}
+    username: ${DB_USER:csiyj}
+    password: ${DB_PWD:******}
+    # 微服务模式使用 dynamic-datasource，读取以下配置
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:csiyj_db}
+          username: ${DB_USER:csiyj}
+          password: ${DB_PWD:******}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASS:******}
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  cloud:
+    openfeign:
+      okhttp:
+        enabled: true
+      httpclient:
+        enabled: false
+        connection-timeout: 20000
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+  # OAuth2 资源服务器 JWT 验签配置
+  # 所有微服务通过此配置验证 smart-auth 签发的 JWT token
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://${AUTH_HOST:localhost}:${AUTH_PORT:9200}/oauth2/jwks
+
+# 端点对外暴露
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+# mybatis-plus 配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    call-setters-on-nulls: true
+    shrink-whitespaces-in-sql: true

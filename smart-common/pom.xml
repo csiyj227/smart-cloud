@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.smart</groupId>
+        <artifactId>smart</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>smart-common</artifactId>
+    <packaging>pom</packaging>
+    <name>smart-common</name>
+
+    <modules>
+        <module>smart-common-bom</module>
+        <module>smart-common-core</module>
+        <module>smart-common-data</module>
+        <module>smart-common-security</module>
+        <module>smart-common-feign</module>
+        <module>smart-common-gateway</module>
+        <module>smart-common-log</module>
+        <module>smart-common-swagger</module>
+        <module>smart-common-idempotent</module>
+        <module>smart-common-xss</module>
+    </modules>
+</project>

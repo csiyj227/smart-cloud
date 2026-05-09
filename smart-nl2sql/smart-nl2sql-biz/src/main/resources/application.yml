@@ -1,0 +1,56 @@
+server:
+  port: 5010
+
+spring:
+  application:
+    name: smart-nl2sql
+  cloud:
+    nacos:
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      discovery:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+  config:
+    import:
+      - optional:nacos:application-common.yml
+      - optional:nacos:${spring.application.name}.yml
+  ai:
+    openai:
+      api-key: ${AI_OPENAI_API_KEY:sk-placeholder}
+      base-url: ${AI_OPENAI_BASE_URL:https://api.openai.com}
+      embedding:
+        api-key: ${AI_OPENAI_API_KEY:sk-placeholder}
+        base-url: ${AI_OPENAI_BASE_URL:https://api.openai.com}
+        options:
+          model: ${AI_EMBEDDING_MODEL:text-embedding-3-small}
+    retry:
+      max-attempts: 3
+      backoff:
+        initial-interval: 1000
+        multiplier: 2
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 8
+        queue-capacity: 100
+      thread-name-prefix: nl2sql-async-
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+nl2sql:
+  max-query-rows: 1000
+  query-timeout-seconds: 30
+  connection-pool:
+    max-pool-size: 5
+    min-idle: 1
+    max-lifetime-minutes: 30

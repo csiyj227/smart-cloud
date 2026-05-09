@@ -1,0 +1,49 @@
+server:
+  port: 5009
+
+spring:
+  application:
+    name: smart-ai
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+  config:
+    import:
+      - optional:nacos:application-common.yml
+      - optional:nacos:${spring.application.name}.yml
+  # Spring AI 占位符配置（实际模型配置在数据库中，通过 ChatModelFactory 动态创建）
+  ai:
+    openai:
+      api-key: ${AI_OPENAI_API_KEY:sk-placeholder}
+      base-url: ${AI_OPENAI_BASE_URL:https://api.openai.com}
+      embedding:
+        api-key: ${AI_OPENAI_API_KEY:sk-placeholder}
+        base-url: ${AI_OPENAI_BASE_URL:https://api.openai.com}
+        options:
+          model: ${AI_EMBEDDING_MODEL:text-embedding-3-small}
+    retry:
+      max-attempts: 3
+      backoff:
+        initial-interval: 1000
+        multiplier: 2
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 8
+        queue-capacity: 100
+      thread-name-prefix: ai-async-
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0

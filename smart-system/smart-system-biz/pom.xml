@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.smart</groupId>
+        <artifactId>smart-system</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>smart-system-biz</artifactId>
+    <name>smart-system-biz</name>
+
+    <dependencies>
+        <!-- UPMS API -->
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-system-api</artifactId>
+        </dependency>
+
+        <!-- Smart Data (MyBatis-Plus, Tenant, Redis) -->
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-common-data</artifactId>
+        </dependency>
+
+        <!-- Smart Security (OAuth2 Resource Server) -->
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-common-security</artifactId>
+        </dependency>
+
+        <!-- Smart Feign -->
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-common-feign</artifactId>
+        </dependency>
+
+        <!-- Smart Log -->
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-common-log</artifactId>
+        </dependency>
+
+        <!-- EasyExcel -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
+        <!-- ==================== 文件管理（业务模块）==================== -->
+        <!-- MinIO 对象存储 SDK，仅当 spring.profiles.active 包含 minio 或配置 file.storage.type=minio 时生效 -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- ==================== 定时任务（业务模块）==================== -->
+        <!-- Spring Boot Quartz Starter（自动装配 SchedulerFactoryBean，对接 sys_job） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+        <!-- Smart Swagger -->
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-common-swagger</artifactId>
+        </dependency>
+
+        <!-- Smart Flow API (for CustomFormStatusChangeEvent) -->
+        <dependency>
+            <groupId>com.smart</groupId>
+            <artifactId>smart-flow-api</artifactId>
+        </dependency>
+
+        <!-- Nacos Discovery -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!-- Nacos Config -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- Spring Authorization Server (for RegisteredClientRepository) -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-authorization-server</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Undertow Servlet Container -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

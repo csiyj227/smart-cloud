@@ -1,0 +1,29 @@
+{
+  "${lowerClassName}": {
+    "title": "${functionName}",
+    "add": "新增",
+    "edit": "编辑",
+    "delete": "删除",
+    "search": "搜索",
+    "reset": "重置",
+    "confirm": "确定",
+    "cancel": "取消",
+    "operation": "操作",
+    "fields": {
+#set($size = $columns.size() - 1)
+#foreach($column in $columns)
+#if($foreach.index < $size)
+      "${column.javaField}": "${column.columnComment}",
+#else
+      "${column.javaField}": "${column.columnComment}"
+#end
+#end
+    },
+    "messages": {
+      "addSuccess": "新增成功",
+      "editSuccess": "修改成功",
+      "deleteSuccess": "删除成功",
+      "deleteConfirm": "确认删除该记录？"
+    }
+  }
+}

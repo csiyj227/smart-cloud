@@ -1,0 +1,38 @@
+package ${packageName}.${moduleName}.controller;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+/**
+ * ${className}Controller 集成测试模板。
+ *
+ * <p>由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ *
+ * <p>使用前请：
+ * <ol>
+ *   <li>确认 spring-security-test、spring-boot-starter-test 已添加</li>
+ *   <li>根据实际权限码调整 @WithMockUser 的 authorities</li>
+ *   <li>补充新增 / 修改 / 删除场景的断言</li>
+ * </ol>
+ */
+@SpringBootTest
+@AutoConfigureMockMvc
+class ${className}ControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    @WithMockUser(authorities = "${permissionPrefix}_view")
+    void page_should_return_200() throws Exception {
+        mockMvc.perform(get("/${lowerClassName}/page"))
+                .andExpect(status().isOk());
+    }
+}

@@ -1,0 +1,40 @@
+-- ============================================================
+-- ${functionName} 菜单与权限初始化脚本
+-- 由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}
+--
+-- 用法：
+--   1. 把下面的 menu_id 范围根据本地实际情况调整，避免主键冲突
+--   2. parent_id 默认为 1（"系统管理"），按需调整
+--   3. 执行后请记得给目标角色（默认 role_id=1）授权
+-- ============================================================
+
+-- 主菜单
+INSERT INTO smart.sys_menu (menu_name, path, component, parent_id, sort_order, menu_type, icon, visible, keep_alive)
+VALUES ('${functionName}', '/${moduleName}/${lowerClassName}', '${moduleName}/${lowerClassName}/index', 1, 99, '1', 'Document', TRUE, TRUE);
+
+-- 按钮权限
+INSERT INTO smart.sys_menu (menu_name, permission, parent_id, sort_order, menu_type)
+VALUES ('${functionName}查询', '${permissionPrefix}_view',
+        (SELECT menu_id FROM smart.sys_menu WHERE permission IS NULL AND path = '/${moduleName}/${lowerClassName}' LIMIT 1),
+        0, '2');
+
+INSERT INTO smart.sys_menu (menu_name, permission, parent_id, sort_order, menu_type)
+VALUES ('${functionName}新增', '${permissionPrefix}_add',
+        (SELECT menu_id FROM smart.sys_menu WHERE permission IS NULL AND path = '/${moduleName}/${lowerClassName}' LIMIT 1),
+        1, '2');
+
+INSERT INTO smart.sys_menu (menu_name, permission, parent_id, sort_order, menu_type)
+VALUES ('${functionName}修改', '${permissionPrefix}_edit',
+        (SELECT menu_id FROM smart.sys_menu WHERE permission IS NULL AND path = '/${moduleName}/${lowerClassName}' LIMIT 1),
+        2, '2');
+
+INSERT INTO smart.sys_menu (menu_name, permission, parent_id, sort_order, menu_type)
+VALUES ('${functionName}删除', '${permissionPrefix}_del',
+        (SELECT menu_id FROM smart.sys_menu WHERE permission IS NULL AND path = '/${moduleName}/${lowerClassName}' LIMIT 1),
+        3, '2');
+
+-- 给超级管理员（role_id=1）授权所有按钮
+INSERT INTO smart.sys_role_menu (role_id, menu_id, tenant_id)
+SELECT 1, menu_id, 1 FROM smart.sys_menu
+WHERE permission IN ('${permissionPrefix}_view', '${permissionPrefix}_add', '${permissionPrefix}_edit', '${permissionPrefix}_del')
+   OR (permission IS NULL AND path = '/${moduleName}/${lowerClassName}');

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.smart</groupId>
+    <artifactId>smart-common-bom</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>smart-common-bom</name>
+    <description>Smart Bill of Materials - centralized version management</description>
+
+    <properties>
+        <smart.version>1.0.0</smart.version>
+        <spring-authorization-server.version>1.3.1</spring-authorization-server.version>
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <mybatis-plus-join.version>1.4.13</mybatis-plus-join.version>
+        <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
+        <druid.version>1.2.20</druid.version>
+        <postgresql.version>42.7.3</postgresql.version>
+        <redisson.version>3.27.0</redisson.version>
+        <hutool.version>5.8.31</hutool.version>
+        <knife4j.version>4.5.0</knife4j.version>
+        <springdoc.version>2.1.0</springdoc.version>
+        <velocity.version>2.3</velocity.version>
+        <jasypt.version>3.0.5</jasypt.version>
+        <ttl.version>2.12.6</ttl.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
+        <minio.version>8.5.10</minio.version>
+        <quartz.version>2.3.2</quartz.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Smart internal modules -->
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-core</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-data</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-security</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-feign</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-gateway</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-log</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-swagger</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-idempotent</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-xss</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-system-api</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-system-biz</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-codegen-api</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-codegen-biz</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-flow-api</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-flow-biz</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-ai-api</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-ai-biz</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-nl2sql-api</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-nl2sql-biz</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-auth</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-boot</artifactId>
+                <version>${smart.version}</version>
+            </dependency>
+
+            <!-- Spring Authorization Server -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-oauth2-authorization-server</artifactId>
+                <version>${spring-authorization-server.version}</version>
+            </dependency>
+
+            <!-- MyBatis-Plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-join</artifactId>
+                <version>${mybatis-plus-join.version}</version>
+            </dependency>
+
+            <!-- Dynamic Datasource -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
+            </dependency>
+
+            <!-- Druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-3-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- PostgreSQL -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <!-- Redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- Hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- Knife4j -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- SpringDoc OpenAPI -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <!-- Velocity -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+
+            <!-- Jasypt -->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
+            </dependency>
+
+            <!-- TTL -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${ttl.version}</version>
+            </dependency>
+
+            <!-- Easy Captcha -->
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${easy-captcha.version}</version>
+            </dependency>
+
+            <!-- MinIO 对象存储 SDK（文件管理 minio profile 使用） -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
+            <!-- Quartz JDBC 持久化（定时任务集群模式）。
+                 注：spring-boot-starter-quartz 默认会拉取 quartz 2.3.x（与此处版本一致），
+                 这里在 BOM 中显式声明只是为了在 IDE 中显式锁定版本，不引入额外排除。 -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

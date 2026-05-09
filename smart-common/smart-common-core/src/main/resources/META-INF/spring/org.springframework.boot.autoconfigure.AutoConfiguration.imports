@@ -1,0 +1,3 @@
+com.smart.common.core.config.JacksonConfiguration
+com.smart.common.core.config.I18nConfiguration
+com.smart.common.core.config.WebFilterAutoConfiguration

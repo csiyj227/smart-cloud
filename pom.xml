@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.smart</groupId>
+    <artifactId>smart</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>smart</name>
+    <description>Smart Microservice Scaffold</description>
+
+    <modules>
+        <module>smart-common</module>
+    </modules>
+
+    <profiles>
+        <profile>
+            <id>cloud</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>smart-auth</module>
+                <module>smart-gateway</module>
+                <module>smart-system</module>
+                <module>smart-codegen</module>
+                <module>smart-flow</module>
+                <module>smart-ai</module>
+                <module>smart-nl2sql</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>boot</id>
+            <modules>
+                <module>smart-auth</module>
+                <module>smart-system</module>
+                <module>smart-codegen</module>
+                <module>smart-flow</module>
+                <module>smart-ai</module>
+                <module>smart-nl2sql</module>
+                <module>smart-boot</module>
+            </modules>
+        </profile>
+    </profiles>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spring-boot.version>3.3.3</spring-boot.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
+        <spring-authorization-server.version>1.3.1</spring-authorization-server.version>
+
+        <smart.version>1.0.0</smart.version>
+
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <mybatis-plus-join.version>1.4.13</mybatis-plus-join.version>
+        <dynamic-datasource.version>4.3.1</dynamic-datasource.version>
+        <druid.version>1.2.20</druid.version>
+        <postgresql.version>42.7.3</postgresql.version>
+        <redisson.version>3.27.0</redisson.version>
+        <hutool.version>5.8.31</hutool.version>
+        <knife4j.version>4.5.0</knife4j.version>
+        <springdoc.version>2.1.0</springdoc.version>
+        <velocity.version>2.3</velocity.version>
+        <jasypt.version>3.0.5</jasypt.version>
+        <ttl.version>2.12.6</ttl.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
+
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Smart BOM -->
+            <dependency>
+                <groupId>com.smart</groupId>
+                <artifactId>smart-common-bom</artifactId>
+                <version>${smart.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Boot BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud BOM -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud Alibaba BOM -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

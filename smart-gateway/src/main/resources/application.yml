@@ -1,0 +1,58 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: smart-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        # ---- smart-auth (OAuth2 认证、验证码、社交登录) ----
+        - id: smart-auth
+          uri: lb://smart-auth
+          predicates:
+            - Path=/auth/**,/oauth2/**
+
+        # ---- smart-system (系统管理、用户、文件等) ----
+        - id: smart-system
+          uri: lb://smart-system
+          predicates:
+            - Path=/system/**
+
+        # ---- smart-codegen (代码生成) ----
+        - id: smart-codegen
+          uri: lb://smart-codegen
+          predicates:
+            - Path=/codegen/**
+
+        # ---- smart-flow (工作流引擎) ----
+        - id: smart-flow
+          uri: lb://smart-flow
+          predicates:
+            - Path=/flow/**
+
+        # ---- smart-ai (AI 模块) ----
+        - id: smart-ai
+          uri: lb://smart-ai
+          predicates:
+            - Path=/ai/**
+
+        # ---- smart-nl2sql (NL2SQL 模块) ----
+        - id: smart-nl2sql
+          uri: lb://smart-nl2sql
+          predicates:
+            - Path=/nl2sql/**
+  config:
+    import:
+      - optional:nacos:application-common.yml
+      - optional:nacos:${spring.application.name}.yml

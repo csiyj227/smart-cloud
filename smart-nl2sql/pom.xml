@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.smart</groupId>
+        <artifactId>smart</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>smart-nl2sql</artifactId>
+    <packaging>pom</packaging>
+    <name>smart-nl2sql</name>
+    <description>Smart NL2SQL - Natural language to SQL intelligent analysis platform</description>
+
+    <modules>
+        <module>smart-nl2sql-api</module>
+        <module>smart-nl2sql-biz</module>
+    </modules>
+
+    <properties>
+        <spring-ai.version>1.0.0</spring-ai.version>
+        <pgvector.version>0.1.6</pgvector.version>
+        <druid.version>1.2.20</druid.version>
+    </properties>
+</project>

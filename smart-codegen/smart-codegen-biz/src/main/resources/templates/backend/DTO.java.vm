@@ -1,0 +1,27 @@
+package ${packageName}.${moduleName}.dto;
+
+import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+#foreach($import in $importList)
+import ${import};
+#end
+
+/**
+ * ${functionName} 入参 DTO（用于新增 / 修改）。
+ *
+ * <p>由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ */
+@Data
+@Schema(description = "${functionName} 请求 DTO")
+public class ${className}DTO {
+
+#foreach($column in $insertColumns)
+    @Schema(description = "${column.columnComment}")
+    private ${column.javaType} ${column.javaField};
+
+#end
+#if($pkColumn)
+    @Schema(description = "主键，编辑时必填")
+    private ${pkColumn.javaType} ${pkColumn.javaField};
+#end
+}

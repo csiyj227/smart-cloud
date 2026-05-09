@@ -1,0 +1,24 @@
+package com.smart.common.xss.filter;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
+
+/**
+ * Servlet filter that wraps requests for XSS sanitization.
+ *
+ * Servlet 过滤器，包装请求以进行 XSS 清理。
+ */
+public class XssFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        chain.doFilter(new XssHttpServletRequestWrapper((HttpServletRequest) request), response);
+    }
+}

@@ -1,0 +1,53 @@
+# 网关服务配置
+spring:
+  cloud:
+    gateway:
+      routes:
+        # ---- smart-auth (OAuth2 认证、验证码、社交登录) ----
+        - id: smart-auth
+          uri: lb://smart-auth
+          predicates:
+            - Path=/auth/**,/oauth2/**
+
+        # ---- smart-system (系统管理、用户、文件等) ----
+        - id: smart-system
+          uri: lb://smart-system
+          predicates:
+            - Path=/system/**
+
+        # ---- smart-codegen (代码生成) ----
+        - id: smart-codegen
+          uri: lb://smart-codegen
+          predicates:
+            - Path=/codegen/**
+
+        # ---- smart-flow (工作流引擎) ----
+        - id: smart-flow
+          uri: lb://smart-flow
+          predicates:
+            - Path=/flow/**
+
+        # ---- smart-ai (AI 模块) ----
+        - id: smart-ai
+          uri: lb://smart-ai
+          predicates:
+            - Path=/ai/**
+
+        # ---- smart-nl2sql (NL2SQL 模块) ----
+        - id: smart-nl2sql
+          uri: lb://smart-nl2sql
+          predicates:
+            - Path=/nl2sql/**
+
+        # ---- OpenAPI 文档聚合 ----
+        - id: openapi
+          uri: lb://smart-gateway
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /${path}/v3/api-docs
+
+management:
+  endpoint:
+    gateway:
+      enabled: true

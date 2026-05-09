@@ -1,0 +1,3 @@
+com.smart.common.security.component.SmartResourceServerAutoConfiguration
+com.smart.common.security.component.I18nLocaleConfiguration
+com.smart.common.security.SmartCommonSecurityComponentScanConfiguration

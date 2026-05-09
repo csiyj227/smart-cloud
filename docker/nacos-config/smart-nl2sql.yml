@@ -1,0 +1,28 @@
+
+# NL2SQL 自然语言转SQL服务配置
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:csiyj_db}
+    username: ${DB_USER:csiyj}
+    password: ${DB_PWD:******}
+  ai:
+    openai:
+      api-key: ${AI_OPENAI_API_KEY:sk-******}
+      base-url: ${AI_OPENAI_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode}
+      chat:
+        options:
+          model: ${AI_CHAT_MODEL:qwen-plus}
+          temperature: 0.3
+      embedding:
+        api-key: ${AI_OPENAI_API_KEY:sk-******}
+        base-url: ${AI_OPENAI_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode}
+        options:
+          # 百炼 embedding 模型：text-embedding-v2 / text-embedding-v3 / text-embedding-v4
+          model: ${AI_EMBEDDING_MODEL:text-embedding-v3}
+
+    retry:
+      max-attempts: 3
+      backoff:
+        initial-interval: 1000
+        multiplier: 2

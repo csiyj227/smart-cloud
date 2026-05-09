@@ -1,0 +1,83 @@
+package ${packageName}.${moduleName}.controller;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${packageName}.${moduleName}.entity.${className};
+import ${packageName}.${moduleName}.dto.${className}DTO;
+import ${packageName}.${moduleName}.query.${className}Query;
+import ${packageName}.${moduleName}.service.${className}Service;
+import com.smart.common.core.util.R;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tag.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * ${functionName} 接口。
+ *
+ * <p>由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ */
+@Slf4j
+@Tag(name = "${functionName}")
+@RestController
+@RequestMapping("/${lowerClassName}")
+@RequiredArgsConstructor
+public class ${className}Controller {
+
+    private final ${className}Service ${lowerClassName}Service;
+
+    @Operation(summary = "分页查询")
+    @PreAuthorize("@authz.hasPermission('${permissionPrefix}_view')")
+    @GetMapping("/page")
+    public R<Page<${className}>> page(${className}Query query) {
+        Page<${className}> page = new Page<>(query.getCurrent(), query.getSize());
+        LambdaQueryWrapper<${className}> wrapper = new LambdaQueryWrapper<>();
+#foreach($column in $queryColumns)
+#if($column.queryType.equalsIgnoreCase("LIKE"))
+        wrapper.like(query.get${column.javaField.substring(0,1).toUpperCase()}${column.javaField.substring(1)}() != null, ${className}::get${column.javaField.substring(0,1).toUpperCase()}${column.javaField.substring(1)}, query.get${column.javaField.substring(0,1).toUpperCase()}${column.javaField.substring(1)}());
+#else
+        wrapper.eq(query.get${column.javaField.substring(0,1).toUpperCase()}${column.javaField.substring(1)}() != null, ${className}::get${column.javaField.substring(0,1).toUpperCase()}${column.javaField.substring(1)}, query.get${column.javaField.substring(0,1).toUpperCase()}${column.javaField.substring(1)}());
+#end
+#end
+        return R.ok(${lowerClassName}Service.page(page, wrapper));
+    }
+
+    @Operation(summary = "根据ID查询")
+    @PreAuthorize("@authz.hasPermission('${permissionPrefix}_view')")
+    @GetMapping("/{id}")
+    public R<${className}> getById(@PathVariable Long id) {
+        return R.ok(${lowerClassName}Service.getById(id));
+    }
+
+    @Operation(summary = "新增")
+    @PreAuthorize("@authz.hasPermission('${permissionPrefix}_add')")
+    @PostMapping
+    public R<Void> save(@Valid @RequestBody ${className}DTO dto) {
+        ${className} entity = new ${className}();
+        BeanUtils.copyProperties(dto, entity);
+        ${lowerClassName}Service.save(entity);
+        return R.ok();
+    }
+
+    @Operation(summary = "修改")
+    @PreAuthorize("@authz.hasPermission('${permissionPrefix}_edit')")
+    @PutMapping
+    public R<Void> update(@Valid @RequestBody ${className}DTO dto) {
+        ${className} entity = new ${className}();
+        BeanUtils.copyProperties(dto, entity);
+        ${lowerClassName}Service.updateById(entity);
+        return R.ok();
+    }
+
+    @Operation(summary = "删除")
+    @PreAuthorize("@authz.hasPermission('${permissionPrefix}_del')")
+    @DeleteMapping("/{id}")
+    public R<Void> delete(@PathVariable Long id) {
+        ${lowerClassName}Service.removeById(id);
+        return R.ok();
+    }
+}

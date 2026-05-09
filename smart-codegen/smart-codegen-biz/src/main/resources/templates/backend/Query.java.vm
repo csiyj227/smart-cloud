@@ -1,0 +1,32 @@
+package ${packageName}.${moduleName}.query;
+
+import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+#foreach($import in $importList)
+import ${import};
+#end
+
+/**
+ * ${functionName} 查询条件。
+ *
+ * <p>由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ */
+@Data
+@Schema(description = "${functionName} 查询条件")
+public class ${className}Query {
+
+    @Schema(description = "页码", example = "1")
+    private Long current = 1L;
+
+    @Schema(description = "每页大小", example = "10")
+    private Long size = 10L;
+
+#foreach($column in $queryColumns)
+    /**
+     * ${column.columnComment}（查询方式：${column.queryType}）
+     */
+    @Schema(description = "${column.columnComment}")
+    private ${column.javaType} ${column.javaField};
+
+#end
+}

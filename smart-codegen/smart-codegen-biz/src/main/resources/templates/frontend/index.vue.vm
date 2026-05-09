@@ -1,0 +1,171 @@
+<script setup lang="ts">
+/**
+ * ${functionName} 列表页。
+ * 由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ */
+import { ref, reactive, onMounted } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import {
+  page${className},
+  get${className}ById,
+  create${className},
+  update${className},
+  delete${className},
+} from '@/api/${lowerClassName}'
+
+const loading = ref(false)
+const tableData = ref<any[]>([])
+const dialogVisible = ref(false)
+const submitting = ref(false)
+const isEdit = ref(false)
+const formRef = ref<any>()
+
+const query = reactive({
+#foreach($column in $queryColumns)
+  ${column.javaField}: '',
+#end
+})
+
+const pagination = reactive({ current: 1, size: 10, total: 0 })
+
+const defaultForm = () => ({
+#foreach($column in $insertColumns)
+  ${column.javaField}: undefined as any,
+#end
+})
+
+const form = reactive<any>(defaultForm())
+
+async function fetchData() {
+  loading.value = true
+  try {
+    const params: any = { current: pagination.current, size: pagination.size }
+#foreach($column in $queryColumns)
+    if (query.${column.javaField}) params.${column.javaField} = query.${column.javaField}
+#end
+    const { data } = await page${className}(params)
+    tableData.value = data.data.records
+    pagination.total = data.data.total
+  } finally {
+    loading.value = false
+  }
+}
+
+function resetQuery() {
+#foreach($column in $queryColumns)
+  query.${column.javaField} = ''
+#end
+  pagination.current = 1
+  fetchData()
+}
+
+function handleAdd() {
+  isEdit.value = false
+  Object.assign(form, defaultForm())
+  dialogVisible.value = true
+}
+
+async function handleEdit(row: any) {
+  isEdit.value = true
+  const { data } = await get${className}ById(row.id)
+  Object.assign(form, data.data)
+  dialogVisible.value = true
+}
+
+async function handleDelete(row: any) {
+  await ElMessageBox.confirm('确认删除该记录？', '提示', { type: 'warning' })
+  await delete${className}(row.id)
+  ElMessage.success('删除成功')
+  fetchData()
+}
+
+async function handleSubmit() {
+  await formRef.value?.validate()
+  submitting.value = true
+  try {
+    if (isEdit.value) {
+      await update${className}(form)
+      ElMessage.success('修改成功')
+    } else {
+      await create${className}(form)
+      ElMessage.success('新增成功')
+    }
+    dialogVisible.value = false
+    fetchData()
+  } finally {
+    submitting.value = false
+  }
+}
+
+onMounted(fetchData)
+</script>
+
+<template>
+  <div class="${lowerClassName}-page" style="padding: 16px">
+    <el-card shadow="never">
+      <!-- 搜索 -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap">
+#foreach($column in $queryColumns)
+        <el-input v-model="query.${column.javaField}" placeholder="${column.columnComment}" clearable style="width: 180px" @keyup.enter="fetchData" />
+#end
+        <el-button type="primary" @click="fetchData">搜索</el-button>
+        <el-button @click="resetQuery">重置</el-button>
+        <el-button type="primary" @click="handleAdd">新增</el-button>
+      </div>
+
+      <!-- 表格 -->
+      <el-table v-loading="loading" :data="tableData" border stripe>
+#foreach($column in $listColumns)
+        <el-table-column prop="${column.javaField}" label="${column.columnComment}" show-overflow-tooltip />
+#end
+        <el-table-column label="操作" width="180" fixed="right" align="center">
+          <template #default="{ row }">
+            <div class="op-cell">
+              <el-button size="small" type="primary" plain @click="handleEdit(row)">编辑</el-button>
+              <el-button size="small" type="danger" plain @click="handleDelete(row)">删除</el-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- 分页 -->
+      <div style="display: flex; justify-content: flex-end; padding-top: 16px">
+        <el-pagination
+          v-model:current-page="pagination.current"
+          v-model:page-size="pagination.size"
+          :total="pagination.total"
+          :page-sizes="[10, 20, 50, 100]"
+          layout="total, sizes, prev, pager, next, jumper"
+          background
+          @current-change="fetchData"
+          @size-change="fetchData"
+        />
+      </div>
+    </el-card>
+
+    <!-- 新增 / 编辑 弹窗 -->
+    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑${functionName}' : '新增${functionName}'" width="600px" destroy-on-close>
+      <el-form ref="formRef" :model="form" label-width="100px">
+#foreach($column in $insertColumns)
+        <el-form-item label="${column.columnComment}" prop="${column.javaField}">
+#if($column.htmlType == "textarea")
+          <el-input v-model="form.${column.javaField}" type="textarea" :rows="3" placeholder="请输入${column.columnComment}" />
+#elseif($column.htmlType == "switch")
+          <el-switch v-model="form.${column.javaField}" />
+#elseif($column.htmlType == "datetime")
+          <el-date-picker v-model="form.${column.javaField}" type="datetime" placeholder="请选择${column.columnComment}" style="width: 100%" />
+#elseif($column.htmlType == "date")
+          <el-date-picker v-model="form.${column.javaField}" type="date" placeholder="请选择${column.columnComment}" style="width: 100%" />
+#else
+          <el-input v-model="form.${column.javaField}" placeholder="请输入${column.columnComment}" clearable />
+#end
+        </el-form-item>
+#end
+      </el-form>
+      <template #footer>
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" :loading="submitting" @click="handleSubmit">确定</el-button>
+      </template>
+    </el-dialog>
+  </div>
+</template>

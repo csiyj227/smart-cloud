@@ -1,0 +1,20 @@
+package ${packageName}.${moduleName}.service.impl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${packageName}.${moduleName}.entity.${className};
+import ${packageName}.${moduleName}.mapper.${className}Mapper;
+import ${packageName}.${moduleName}.service.${className}Service;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * ${functionName} Service 实现。
+ *
+ * <p>由 smart-codegen 于 ${today} 生成，作者：${functionAuthor}。
+ */
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements ${className}Service {
+}
