@@ -23,7 +23,7 @@ import java.util.List;
  *       in the M2-final integration step (todo #11).</li>
  * </ol>
  *
- * <p>The methods needed on the upms side are:
+ * <p>The methods needed on the system side are:
  * <ul>
  *   <li>{@code GET /user/ids/by-role?codes=...} - batch user-ids by role codes;</li>
  *   <li>{@code GET /user/ids/by-dept?deptIds=...&includeChildren=...} - batch user-ids by
@@ -59,7 +59,7 @@ public class FeignOrgQueryAdapter implements OrgQueryPort {
     }
 
     private void warnNotImplemented(String method, Object args) {
-        log.warn("OrgQueryPort.{} called with {} but no upms Feign endpoint is wired yet; "
+        log.warn("OrgQueryPort.{} called with {} but no system Feign endpoint is wired yet; "
                 + "returning empty result. See FeignOrgQueryAdapter javadoc for the contract "
                 + "that smart-system-api must expose.", method, args);
     }

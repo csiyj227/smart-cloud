@@ -60,7 +60,7 @@ public class SmsGrantAuthenticationProvider extends AbstractCustomGrantAuthentic
         }
 
         // TODO: Validate SMS code against Redis cache (smart:sms:{phone})
-        // For now, trust the code - SMS validation will be implemented in UPMS module
+        // For now, trust the code - SMS validation will be implemented in SYSTEM module
 
         try {
             UserDetails userDetails = userDetailsService.loadUserByPhoneAndTenant(phone, tenantId);

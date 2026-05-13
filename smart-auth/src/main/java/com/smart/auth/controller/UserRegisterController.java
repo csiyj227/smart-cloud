@@ -49,7 +49,7 @@ public class UserRegisterController {
     /**
      * Register a new user.
      * POST /register
-     * Note: This just prepares the data. Actual user creation should be done by UPMS.
+     * Note: This just prepares the data. Actual user creation should be done by SYSTEM.
      */
     @PostMapping
     public ApiResult<UserRegistrationData> register(@RequestBody Map<String, String> params) {
@@ -73,13 +73,13 @@ public class UserRegisterController {
     /**
      * Check if username is available.
      * GET /register/check-username?username=xxx&tenantId=1
-     * Note: This should call UPMS via Feign to check actual availability.
+     * Note: This should call SYSTEM via Feign to check actual availability.
      */
     @GetMapping("/check-username")
     public ApiResult<Boolean> checkUsername(
             @RequestParam String username,
             @RequestParam(defaultValue = "1") Long tenantId) {
-        // TODO: Call UPMS via Feign to check
+        // TODO: Call SYSTEM via Feign to check
         // For now, return true (available)
         return ApiResult.success(true);
     }

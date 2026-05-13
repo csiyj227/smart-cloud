@@ -23,17 +23,17 @@ import java.util.Set;
 
 /**
  * Feign-based implementation of SmartUserDetailsService for the Auth server.
- * Loads user details via remote call to the UPMS service instead of direct DB access.
+ * Loads user details via remote call to the SYSTEM service instead of direct DB access.
  *
  * <p>Activated only when {@code smart.auth.feign-user-details=true} (set in smart-auth's application.yml).
  * In monolith mode (SmartBootApplication), this property is absent, so
- * the SmartUserDetailsServiceImpl from UPMS-biz is used instead (direct DB access).
+ * the SmartUserDetailsServiceImpl from SYSTEM-biz is used instead (direct DB access).
  *
  * Feign 实现的 SmartUserDetailsService，用于认证服务器。
- * 通过远程调用 UPMS 服务加载用户详情，而非直接访问数据库。
+ * 通过远程调用 SYSTEM 服务加载用户详情，而非直接访问数据库。
  *
  * <p>仅在 {@code smart.auth.feign-user-details=true} 时激活（在 smart-auth 的 application.yml 中设置）。
- * 在单体模式（SmartBootApplication）下，此属性不存在，因此使用 UPMS-biz 中的 SmartUserDetailsServiceImpl（直接数据库访问）。
+ * 在单体模式（SmartBootApplication）下，此属性不存在，因此使用 SYSTEM-biz 中的 SmartUserDetailsServiceImpl（直接数据库访问）。
  */
 @Slf4j
 @Service

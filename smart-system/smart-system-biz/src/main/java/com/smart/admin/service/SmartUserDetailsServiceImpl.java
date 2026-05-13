@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Implementation of SmartUserDetailsService that loads user details from the UPMS database.
+ * Implementation of SmartUserDetailsService that loads user details from the SYSTEM database.
  * This is the bridge between the auth server and the user management system.
  */
 @Service

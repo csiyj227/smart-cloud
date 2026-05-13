@@ -10,7 +10,7 @@ import java.io.Serial;
  * 登录相关事件，用于解耦 smart-auth 与 smart-system-biz。
  *
  * <p>auth 模块负责发布事件（成功 / 失败 / 锁定 / 登出），
- * upms-biz 模块通过 {@code @EventListener} 监听并落库 {@code sys_login_log} 与维护在线用户。
+ * system-biz 模块通过 {@code @EventListener} 监听并落库 {@code sys_login_log} 与维护在线用户。
  */
 @Getter
 @ToString(callSuper = false)

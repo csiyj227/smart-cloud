@@ -13,12 +13,12 @@ import java.time.Duration;
 /**
  * User registration service.
  * Supports self-registration with email/phone verification.
- * Note: Actual user creation is delegated via Feign to UPMS service.
+ * Note: Actual user creation is delegated via Feign to SYSTEM service.
  * This service handles verification code generation and validation only.
  *
  * 用户注册服务。
  * 支持通过邮箱/手机验证码自主注册。
- * 注意：实际的用户创建通过 Feign 委托给 UPMS 服务完成。
+ * 注意：实际的用户创建通过 Feign 委托给 SYSTEM 服务完成。
  * 本服务仅处理验证码的生成和校验。
  */
 @Slf4j
@@ -53,7 +53,7 @@ public class UserRegisterService {
 
     /**
      * Send registration verification code.
-     * Note: In production, should check username availability via UPMS Feign API.
+     * Note: In production, should check username availability via SYSTEM Feign API.
      *
      * @param account   email or phone
      * @param type      "email" or "phone"
@@ -86,7 +86,7 @@ public class UserRegisterService {
     /**
      * Prepare registration data for user creation.
      * Validates code and stores user data temporarily.
-     * Actual user creation should be done by UPMS service via Feign.
+     * Actual user creation should be done by SYSTEM service via Feign.
      *
      * @param username   username
      * @param password   password (encoded)
@@ -95,7 +95,7 @@ public class UserRegisterService {
      * @param phone      phone (optional)
      * @param email      email (optional)
      * @param realName   real name (optional)
-     * @return user data map (to be sent to UPMS for creation)
+     * @return user data map (to be sent to SYSTEM for creation)
      */
     public UserRegistrationData prepareRegistration(String username, String password, String code,
                                                      Long tenantId, String phone, String email, String realName) {
@@ -121,7 +121,7 @@ public class UserRegisterService {
         // Delete used code
         redisTemplate.delete(redisKey);
 
-        // Store registration data (will be picked up by UPMS or processed here)
+        // Store registration data (will be picked up by SYSTEM or processed here)
         UserRegistrationData userData = new UserRegistrationData();
         userData.setUsername(username);
         userData.setPassword(password);

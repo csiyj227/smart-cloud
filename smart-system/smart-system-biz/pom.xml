@@ -14,7 +14,7 @@
     <name>smart-system-biz</name>
 
     <dependencies>
-        <!-- UPMS API -->
+        <!-- SYSTEM API -->
         <dependency>
             <groupId>com.smart</groupId>
             <artifactId>smart-system-api</artifactId>

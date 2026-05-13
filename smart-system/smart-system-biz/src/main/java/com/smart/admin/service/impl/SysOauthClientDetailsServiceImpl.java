@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  *       仍要求<b>全局唯一</b>，租户隔离仅作用于"管理面"。</li>
  *   <li><b>缓存联动</b>：通过 {@link RegisteredClientRepository}（当前为
  *       {@code SmartJdbcRegisteredClientRepository}）的 reflective evict 让 auth 端缓存
- *       立即失效。Bean 通过 {@link ObjectProvider} 注入，避免 upms 强依赖 auth 端实现类
+ *       立即失效。Bean 通过 {@link ObjectProvider} 注入，避免 system 强依赖 auth 端实现类
  *       （单体部署时可获取到，微服务拆分时也不会编译失败）。</li>
  * </ul>
  */
@@ -104,7 +104,7 @@ public class SysOauthClientDetailsServiceImpl extends ServiceImpl<SysOauthClient
     /**
      * 反射式失效 RegisteredClientRepository 的缓存。
      *
-     * <p>使用反射调用 {@code evictCache(String)} 方法，避免 upms 模块强依赖
+     * <p>使用反射调用 {@code evictCache(String)} 方法，避免 system 模块强依赖
      * smart-auth 的 {@code SmartJdbcRegisteredClientRepository} 类。
      * 单体部署下能拿到 Bean，微服务拆分时此 Bean 不存在，会被静默跳过。
      */

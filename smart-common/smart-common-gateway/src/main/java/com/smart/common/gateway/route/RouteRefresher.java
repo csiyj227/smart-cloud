@@ -73,7 +73,7 @@ public class RouteRefresher implements CommandLineRunner {
 
     /**
      * Listen to Redis Stream for route change events.
-     * When a route is added/updated/deleted in the UPMS module,
+     * When a route is added/updated/deleted in the SYSTEM module,
      * it sends a message to the stream, which triggers a route cache refresh.
      */
     private void startStreamListener() {

@@ -33,13 +33,13 @@
             <artifactId>smart-common-security</artifactId>
         </dependency>
 
-        <!-- Smart Feign (cross-service calls to UPMS) -->
+        <!-- Smart Feign (cross-service calls to SYSTEM) -->
         <dependency>
             <groupId>com.smart</groupId>
             <artifactId>smart-common-feign</artifactId>
         </dependency>
 
-        <!-- UPMS contracts (RemoteUserService etc.) -->
+        <!-- SYSTEM contracts (RemoteUserService etc.) -->
         <dependency>
             <groupId>com.smart</groupId>
             <artifactId>smart-system-api</artifactId>

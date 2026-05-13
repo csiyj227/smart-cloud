@@ -32,7 +32,7 @@
             <artifactId>smart-common-feign</artifactId>
         </dependency>
 
-        <!-- Smart UPMS API (Feign clients & DTOs) -->
+        <!-- Smart SYSTEM API (Feign clients & DTOs) -->
         <dependency>
             <groupId>com.smart</groupId>
             <artifactId>smart-system-api</artifactId>

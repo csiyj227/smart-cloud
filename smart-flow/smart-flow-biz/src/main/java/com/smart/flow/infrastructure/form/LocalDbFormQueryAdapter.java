@@ -16,7 +16,7 @@ import java.util.Optional;
  *
  * <p>Why JdbcTemplate rather than reusing {@code SysFormMapper}? The mapper lives in
  * {@code smart-system-biz}, and pulling it in would couple smart-flow's startup to the
- * UPMS module - the runtime classpath would need every UPMS bean to satisfy
+ * SYSTEM module - the runtime classpath would need every SYSTEM bean to satisfy
  * MyBatis-Plus's mapper scan. A short, hand-rolled SELECT keeps the dependency graph
  * one-way (smart-flow knows about the table, not the module) and is trivial to
  * refactor into a Feign call later.
